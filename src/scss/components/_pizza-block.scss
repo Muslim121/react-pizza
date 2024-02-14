@@ -1,4 +1,15 @@
 @import "../variables";
+@media only screen and (max-width: 800px) {
+  .header__cart {
+    display: none;
+  }
+  .content__top {
+    flex-wrap: wrap;
+  }
+  #cat {
+    flex-wrap: wrap;
+  }
+}
 
 .pizza-block {
   width: 280px;

@@ -14,7 +14,7 @@ function Categories() {
 
   return (
     <div className="categories">
-      <ul>
+      <ul id="cat">
         {categories.map((value, i) => (
           <li
             key={value}
