@@ -1,24 +1,14 @@
 @import "../variables";
-@media only screen and (max-width: 800px) {
-  .header__cart {
-    display: none;
-  }
-  .content__top {
-    flex-wrap: wrap;
-  }
-  #cat {
-    flex-wrap: wrap;
-  }
-  #catteg {
-    margin-bottom: 10px;
-  }
-}
 
 .pizza-block {
   width: 280px;
   text-align: center;
   margin-bottom: 65px;
 
+  &-wrapper {
+    display: flex;
+    justify-content: center;
+  }
   &:not(:nth-of-type(4n)) {
     margin-right: 35px;
   }
