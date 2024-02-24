@@ -10,9 +10,6 @@ import NotFound from "./pages/NotFound";
 function App() {
   const [searchValue, setSearchValue] = React.useState("");
 
-  const count = useSelector((state) => state.counter.count);
-  const dispatch = useDispatch();
-
   return (
     <div className="App">
       <div className="wrapper">

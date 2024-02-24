@@ -1,16 +1,15 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { add } from "../redux/slices/filterSlice";
 
 const typeNames = ["тонкое", "традиционное"];
-
-const dispatch = useDispatch();
-const count = useSelector((state) => state.filter.count);
 
 function PizzaBlock({ title, price, imageUrl, sizes, types }) {
   const [sizeIndex, setSizeIndex] = React.useState(0);
   const [typeId, setTypeId] = React.useState(0);
+  const [index, setIndex] = React.useState(0);
 
+  const OnClickIndex = () => {
+    setIndex(index + 1);
+  };
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
@@ -43,7 +42,7 @@ function PizzaBlock({ title, price, imageUrl, sizes, types }) {
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">от {price} ₽</div>
           <button
-            onClick={() => dispatch(add())}
+            onClick={OnClickIndex}
             className="button button--outline button--add"
           >
             <svg
@@ -59,7 +58,7 @@ function PizzaBlock({ title, price, imageUrl, sizes, types }) {
               />
             </svg>
             <span>Добавить</span>
-            <i>{count}</i>
+            <i>{index}</i>
           </button>
         </div>
       </div>
