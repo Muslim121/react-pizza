@@ -1,7 +1,8 @@
 import React from "react";
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setCategoryId } from "../redux/Slices/filterSlice";
+import { setItems } from "../redux/Slices/pizzasSlice";
+import axios from "axios";
 
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Categories from "../components/Categories";
@@ -10,11 +11,11 @@ import PizzaBlock from "../components/PizzaBlock";
 
 const Home = ({ searchValue }) => {
   const { categoryId, sort } = useSelector((state) => state.filter);
+  const items = useSelector((state) => state.pizza.items);
   const dispatch = useDispatch();
 
   const sortType = sort.sort;
 
-  const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
   const pizzas = items
@@ -36,21 +37,25 @@ const Home = ({ searchValue }) => {
     dispatch(setCategoryId(id));
   };
 
-  React.useEffect(() => {
+  React.useEffect(async () => {
+    setIsLoading(true);
+
     const sortBy = sortType.replace("-", "");
     const order = sortType.includes("-") ? `asc` : `desc`;
     const categorie = categoryId > 0 ? `category=${categoryId}` : "";
+    await axios.get(
+      `https://65cc6b19dd519126b83e6b54.mockapi.io/items?&page=1&${categorie}&sortBy=${sortBy}&order=${order}`
+    );
 
-    setIsLoading(true);
+    try {
+      dispatch(setItems());
+    } catch (error) {
+      alert("Ошибка при получении пицц");
+      console.log("ERROR", error);
+    } finally {
+      setIsLoading(false);
+    }
 
-    axios
-      .get(
-        `https://65cc6b19dd519126b83e6b54.mockapi.io/items?&page=1&${categorie}&sortBy=${sortBy}&order=${order}`
-      )
-      .then((res) => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
     window.scroll(0, 0);
   }, [categoryId, sortType]);
 
