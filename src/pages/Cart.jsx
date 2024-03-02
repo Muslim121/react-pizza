@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "../components/CartItems";
 import { clearItems } from "../redux/Slices/CartSlice";
@@ -9,7 +9,9 @@ const Cart = () => {
   const { items, totalPrice } = useSelector((state) => state.cart);
 
   const OnClickClear = () => {
-    dispatch(clearItems());
+    if (window.confirm("Вы уверенны, что хотите отчистить корзину?")) {
+      dispatch(clearItems());
+    }
   };
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
 
